@@ -1,7 +1,10 @@
 export default {
   async fetch(request, env) {
+    const index = request.url.indexOf('?');
+    const query = index !== -1 ? request.url.slice(index) : '';
+    const params = new URLSearchParams(query);
     const inputs = {
-      prompt: "cyberpunk cat",
+      prompt: params.get('p') || "cyberpunk cat",
     };
 
     const response = await env.AI.run(
